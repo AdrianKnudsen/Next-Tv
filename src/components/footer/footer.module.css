@@ -1,0 +1,13 @@
+/* --------Footer-Mobile---------- */
+
+.foot {
+  background-color: whitesmoke;
+  color: #4561a8;
+  padding: 15px 20px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,70 @@
+/* --------Heading/hero-Mobile---------- */
+
+.headerText {
+  color: #e8e8e8;
+  margin-top: 3rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 1rem;
+}
+
+.find {
+  font-size: 10vmax;
+  line-height: 81.619%;
+  letter-spacing: -1.9px;
+}
+
+.your {
+  color: #4561a8;
+  font-size: 10vmax;
+  line-height: 81.619%;
+  letter-spacing: -1.9px;
+}
+
+.tv {
+  font-size: 12vmax;
+  line-height: 81.619%;
+  letter-spacing: -2.35px;
+}
+
+.adventure {
+  font-size: 8.8vmax;
+  line-height: 81.619%;
+  letter-spacing: -3.85px;
+}
+
+@media (max-width: 540px) {
+  .find {
+    font-size: 8vmax;
+  }
+
+  .your {
+    font-size: 8vmax;
+  }
+
+  .tv {
+    font-size: 9.7vmax;
+  }
+
+  .adventure {
+    font-size: 7.2vmax;
+  }
+}
+
+@media (max-width: 320px) {
+  .find {
+    font-size: 6vmax;
+  }
+
+  .your {
+    font-size: 6vmax;
+  }
+
+  .tv {
+    font-size: 7.3vmax;
+  }
+
+  .adventure {
+    font-size: 5.5vmax;
+  }
+}
