@@ -4,20 +4,22 @@ import { apiKey } from "../../../key.js";
 import style from "./searchFunction.module.css";
 
 export default function SearchFunction() {
-  const [streams] = useState([]);
+  const [streams, setStreams] = useState([]);
 
   const searchStreaming = async (e) => {
     e.preventDefault();
 
     const url = `https://api.watchmode.com/v1/sources/?apiKey=${apiKey}`;
 
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log(data);
-    } catch (err) {
-      console.error(err);
-    }
+    const fetchData = async (url) => {
+      const response = await fetch(url);
+      const result = await response.json();
+      console.log(result);
+
+      setStreams(result);
+    };
+
+    fetchData(url);
   };
 
   return (
@@ -33,7 +35,13 @@ export default function SearchFunction() {
           Search
         </button>
       </form>
-      <div className="card-list">{streams.map((name) => name.results)}</div>
+      <div className={style.cardList}>
+        {streams.map((stream, index) => (
+          <div key={index} className={style.card}>
+            {stream.image_url}
+          </div>
+        ))}
+      </div>
     </>
   );
 }

@@ -1,6 +1,7 @@
 .form {
   display: grid;
   margin-top: 5rem;
+  width: 90%;
 }
 
 .input {
@@ -31,11 +32,17 @@
   scale: 1.1;
 }
 
+.cardList {
+  height: 100%;
+  width: 100%;
+}
+
 @media (min-width: 786px) {
   .form {
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 30%;
     grid-gap: 1rem;
     align-items: center;
+    width: 60%;
   }
 
   .input {
