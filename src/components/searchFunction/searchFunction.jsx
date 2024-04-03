@@ -8,29 +8,39 @@ export default function SearchFunction() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const fetchTitleDetails = async (titleId) => {
+    const url = `https://api.watchmode.com/v1/title/${titleId}/details/?apiKey=${apiKey}&append_to_response=sources`;
+    const response = await fetch(url);
+    const detailsData = await response.json();
+    return detailsData; // This includes the title details and sources.
+  };
+
+  // Function to handle the search
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const searchResponse = await fetch(
-        `https://api.watchmode.com/v1/search/?apiKey=${apiKey}&search_field=name&search_value=${encodeURIComponent(
+      const autocompleteResponse = await fetch(
+        `https://api.watchmode.com/v1/autocomplete-search/?apiKey=${apiKey}&search_value=${encodeURIComponent(
           query
         )}`
       );
-      const searchData = await searchResponse.json();
-      if (searchData.title_results && searchData.title_results.length > 0) {
-        const titleId = searchData.title_results[0].id;
+      const autocompleteData = await autocompleteResponse.json();
 
-        const sourcesResponse = await fetch(
-          `https://api.watchmode.com/v1/title/${titleId}/sources/?apiKey=${apiKey}`
+      if (autocompleteData.results && autocompleteData.results.length > 0) {
+        const detailedResults = await Promise.all(
+          autocompleteData.results.map(async (title) => {
+            const details = await fetchTitleDetails(title.id);
+            return { ...title, ...details };
+          })
         );
-        const sourcesData = await sourcesResponse.json();
-        setResults(sourcesData);
+
+        setResults(detailedResults);
       } else {
         setResults([]);
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
@@ -51,25 +61,53 @@ export default function SearchFunction() {
         </button>
       </form>
       <div className={style.results}>
-        {results.map((option, index) => (
+        {results.map((item, index) => (
           <div key={index} className={style.resultItem}>
-            <h3>{option.name}</h3>
-            <p>
-              Type: {option.type}, Region: {option.region}
-            </p>
-            <p>
-              Seasons: {option.seasons ? option.seasons : "N/A"}, Episodes:{" "}
-              {option.episodes ? option.episodes : "N/A"}
-            </p>
-            {option.web_url && (
-              <a
-                href={option.web_url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Watch on {option.name}
-              </a>
-            )}
+            {/* Section for title and poster */}
+            <div className={style.titleAndPoster}>
+              <h3>{item.title}</h3>
+              {item.image_url && (
+                <img
+                  className={style.poster}
+                  src={item.image_url}
+                  alt={`Poster for ${item.name}`}
+                />
+              )}
+            </div>
+
+            {/* Section for the rest of the information */}
+            <div className={style.details}>
+              <p>Type: {item.type}</p>
+              <p>
+                Genre: {item.genre_names ? item.genre_names.join(", ") : " "}
+              </p>
+              <div className={style.availableOn}>
+                Available on:
+                <ul>
+                  {item.sources &&
+                    item.sources
+                      .filter((source) => source.type === "sub")
+                      .reduce((unique, source) => {
+                        if (!unique.some((u) => u.name === source.name)) {
+                          unique.push(source);
+                        }
+                        return unique;
+                      }, [])
+                      .map((source, sIndex) => (
+                        <li key={sIndex} className={style.streamingService}>
+                          {source.name} -{" "}
+                          <a
+                            href={source.web_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Watch
+                          </a>
+                        </li>
+                      ))}
+                </ul>
+              </div>
+            </div>
           </div>
         ))}
       </div>
