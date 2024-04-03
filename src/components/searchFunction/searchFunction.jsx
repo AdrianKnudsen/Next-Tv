@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { apiKey } from "../../../key.js";
+import { apiKey } from "/key.js";
 
 import style from "./searchFunction.module.css";
 
