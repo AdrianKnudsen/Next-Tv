@@ -17,6 +17,8 @@
 .button {
   background-color: #4561a8;
   color: white;
+  display: flex;
+  justify-content: center;
   padding: 0.6rem 2rem;
   border: 1px solid rgba(0, 0, 0, 0.75);
   border-radius: 20px;
@@ -35,6 +37,39 @@
 .cardList {
   height: 100%;
   width: 100%;
+}
+
+.card {
+  height: 100%;
+  width: 100%;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.resultItem {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.resultItem h3 {
+  margin: 0 0 10px 0;
+}
+
+.resultItem p {
+  margin: 5px 0;
+}
+
+.resultItem a {
+  display: inline-block;
+  margin-top: 10px;
+  color: blue;
+  text-decoration: none;
 }
 
 @media (min-width: 786px) {
