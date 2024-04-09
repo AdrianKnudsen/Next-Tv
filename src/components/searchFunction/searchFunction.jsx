@@ -20,11 +20,10 @@ export default function SearchFunction() {
     e.preventDefault();
     setLoading(true);
     try {
-      const autocompleteResponse = await fetch(
-        `https://api.watchmode.com/v1/autocomplete-search/?apiKey=${apiKey}&search_value=${encodeURIComponent(
-          query
-        )}`
-      );
+      const backendUrl = `http://localhost:8000/search?query=${encodeURIComponent(
+        query
+      )}`;
+      const autocompleteResponse = await fetch(backendUrl);
       const autocompleteData = await autocompleteResponse.json();
 
       if (autocompleteData.results && autocompleteData.results.length > 0) {

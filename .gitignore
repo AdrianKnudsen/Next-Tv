@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 .key.js
 key.js
+.env
+env
