@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { apiKey } from "../../../key.js";
 
 import style from "./searchFunction.module.css";
 
@@ -7,6 +6,7 @@ export default function SearchFunction() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const apiKey = process.env.API_KEY;
 
   const fetchTitleDetails = async (titleId) => {
     const url = `https://api.watchmode.com/v1/title/${titleId}/details/?apiKey=${apiKey}&append_to_response=sources`;

@@ -17,7 +17,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Endpoint to handle search queries
-app.get("/", async (req, res) => {
+app.get("/search", async (req, res) => {
   const { query } = req.query;
 
   if (!query) {
