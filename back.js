@@ -9,8 +9,8 @@ const app = express();
 const PORT = 8000;
 
 const corsOptions = {
-  origin: "http://localhost:5173",
-  optionsSuccessStatus: 200, // For legacy browser support
+  origin: ["https://next-tv-js.netlify.app", "http://localhost:5173"],
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
