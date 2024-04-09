@@ -3,10 +3,11 @@ import { useState } from "react";
 import style from "./searchFunction.module.css";
 
 export default function SearchFunction() {
+  const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const apiKey = process.env.API_KEY;
+  const apiKey = process.env.REACT_APP_STREAM_API_KEY;
 
   const fetchTitleDetails = async (titleId) => {
     const url = `https://api.watchmode.com/v1/title/${titleId}/details/?apiKey=${apiKey}&append_to_response=sources`;
@@ -40,6 +41,7 @@ export default function SearchFunction() {
       }
     } catch (error) {
       console.error("Error fetching data:", error);
+      setError("Failed to fetch data. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -59,6 +61,8 @@ export default function SearchFunction() {
           {loading ? "Searching..." : "Search"}
         </button>
       </form>
+      {error && <p className={style.error}>{error}</p>}{" "}
+      {/* Display error message */}
       <div className={style.results}>
         {results.map((item, index) => (
           <div key={index} className={style.resultItem}>
