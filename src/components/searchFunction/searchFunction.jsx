@@ -20,11 +20,9 @@ export default function SearchFunction() {
     e.preventDefault();
     setLoading(true);
     try {
-      const backendBaseUrl =
-        process.env.REACT_APP_BACKEND_URL || "http://localhost:8000"; // Fallback to localhost for development
-      const backendUrl = `${backendBaseUrl}/search?query=${encodeURIComponent(
-        query
-      )}`;
+      const backendUrl = `${
+        process.env.REACT_APP_BACKEND_URL
+      }/search?query=${encodeURIComponent(query)}`;
       const autocompleteResponse = await fetch(backendUrl);
       const autocompleteData = await autocompleteResponse.json();
 
