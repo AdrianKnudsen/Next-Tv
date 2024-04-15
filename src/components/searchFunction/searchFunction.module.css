@@ -92,6 +92,10 @@
   font-size: 17px;
 }
 
+.error {
+  color: whitesmoke;
+}
+
 @media (min-width: 786px) {
   .form {
     grid-template-columns: auto 30%;

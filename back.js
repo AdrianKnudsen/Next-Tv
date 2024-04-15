@@ -24,7 +24,7 @@ app.get("/search", async (req, res) => {
     return res.status(400).json({ error: "Query parameter is required." });
   }
 
-  const apiKey = process.env.API_KEY;
+  const apiKey = import.meta.env.VITE_API_KEY;
   const url = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=${apiKey}&search_value=${encodeURIComponent(
     query
   )}`;

@@ -7,7 +7,7 @@ export default function SearchFunction() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const apiKey = process.env.REACT_APP_STREAM_API_KEY;
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   const fetchTitleDetails = async (titleId) => {
     const url = `https://api.watchmode.com/v1/title/${titleId}/details/?apiKey=${apiKey}&append_to_response=sources`;
@@ -22,7 +22,7 @@ export default function SearchFunction() {
     setLoading(true);
     try {
       const backendUrl = `${
-        process.env.REACT_APP_BACKEND_URL
+        import.meta.env.VITE_BACKEND_URL
       }/search?query=${encodeURIComponent(query)}`;
       const autocompleteResponse = await fetch(backendUrl);
       const autocompleteData = await autocompleteResponse.json();
