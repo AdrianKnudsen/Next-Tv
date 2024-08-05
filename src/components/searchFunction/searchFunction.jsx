@@ -20,11 +20,18 @@ export default function SearchFunction() {
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(""); // Clears prev errors
+
     try {
       const backendUrl = `${
         import.meta.env.VITE_BACKEND_URL
       }/search?query=${encodeURIComponent(query)}`;
       const autocompleteResponse = await fetch(backendUrl);
+
+      if (!autocompleteResponse.ok) {
+        throw new Error("Network response was not ok");
+      }
+
       const autocompleteData = await autocompleteResponse.json();
 
       if (autocompleteData.results && autocompleteData.results.length > 0) {
