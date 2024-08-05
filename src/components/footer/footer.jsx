@@ -4,7 +4,9 @@ export default function Footer() {
   return (
     <>
       <footer>
-        <p className={style.foot}>“Streaming data powered by Watchmode.com</p>
+        <p className={style.foot}>
+          “Streaming data powered by Watchmode.com&rdquo;
+        </p>
       </footer>
     </>
   );
